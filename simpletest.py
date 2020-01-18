@@ -47,7 +47,6 @@ print('Press Ctrl-C to quit.')
 while True:
 	temp = sensor.readTempC()
 	print('Temperature: {0:0.3F}*C / {1:0.3F}*F'.format(temp, c_to_f(temp)))
-	time.sleep(1.0)
 	print("eCO2 = %d ppm \t TVOC = %d ppb" % (sgp30.eCO2, sgp30.TVOC))
     time.sleep(1)
     elapsed_sec += 1
