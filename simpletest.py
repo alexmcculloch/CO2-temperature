@@ -48,9 +48,8 @@ while True:
 	temp = sensor.readTempC()
 	print('Temperature: {0:0.3F}*C / {1:0.3F}*F'.format(temp, c_to_f(temp)))
 	print("eCO2 = %d ppm \t TVOC = %d ppb" % (sgp30.eCO2, sgp30.TVOC))
-    time.sleep(1)
-    elapsed_sec += 1
-    if elapsed_sec > 10:
-        elapsed_sec = 0
-        print("**** Baseline values: eCO2 = 0x%x, TVOC = 0x%x"
-              % (sgp30.baseline_eCO2, sgp30.baseline_TVOC))
+	elapsed_sec += 1
+	if elapsed_sec > 10:
+		elapsed_sec = 0
+		print("**** Baseline values: eCO2 = 0x%x, TVOC = 0x%x" % (sgp30.baseline_eCO2, sgp30.baseline_TVOC))
+	time.sleep(1)
