@@ -2,54 +2,38 @@ import time
 import board
 import busio
 import adafruit_sgp30
-
+import Adafruit_MCP9808.MCP9808 as MCP9808
 # Can enable debug output by uncommenting:
 #import logging
 #logging.basicConfig(level=logging.DEBUG)
 
-import time
+# BEGIN MCP9808 (TEMP) CODE SETUP
+# /////////////////////////////////////////////////////
 
-import Adafruit_MCP9808.MCP9808 as MCP9808
-
-
-# Define a function to convert celsius to fahrenheit.
-def c_to_f(c):
-	return c * 9.0 / 5.0 + 32.0
-
-# Default constructor will use the default I2C address (0x18) and pick a default I2C bus.
-#
-# For the Raspberry Pi this means you should hook up to the only exposed I2C bus
-# from the main GPIO header and the library will figure out the bus number based
-# on the Pi's revision.
-#
-# For the Beaglebone Black the library will assume bus 1 by default, which is
-# exposed with SCL = P9_19 and SDA = P9_20.
-sensor = MCP9808.MCP9808()
-
-i2c = busio.I2C(board.SCL, board.SDA, frequency=100000)
+# Default constructor for temp sensor will use the default I2C address and pick a default I2C bus.
 # Optionally you can override the address and/or bus number:
 #sensor = MCP9808.MCP9808(address=0x20, busnum=2)
+sensor = MCP9808.MCP9808()
 
 # Initialize communication with the sensor.
 sensor.begin()
 
+# BEGIN SGP30 (CO2) CODE SETUP
+# /////////////////////////////////////////////////////
+
+# Default constructor for co2 sensor will use the default I2C address and pick a default I2C bus.
+i2c = busio.I2C(board.SCL, board.SDA, frequency=100000)
+
+# Create sgp30 object to interface with 1c2 bus
 sgp30 = adafruit_sgp30.Adafruit_SGP30(i2c)
 
-print("SGP30 serial #", [hex(i) for i in sgp30.serial])
-
+# Initialize sgp30
 sgp30.iaq_init()
 sgp30.set_iaq_baseline(0x8973, 0x8aae)
 
-elapsed_sec = 0
-
-# Loop printing measurements every second.
-print('Press Ctrl-C to quit.')
+# Loop makng measurements every second.
 while True:
 	temp = sensor.readTempC()
-	print('Temperature: {0:0.3F}*C / {1:0.3F}*F'.format(temp, c_to_f(temp)))
+	print('Temperature: {0:0.3F}*C'.format(temp))
 	print("eCO2 = %d ppm \t TVOC = %d ppb" % (sgp30.eCO2, sgp30.TVOC))
-	elapsed_sec += 1
-	if elapsed_sec > 10:
-		elapsed_sec = 0
-		print("**** Baseline values: eCO2 = 0x%x, TVOC = 0x%x" % (sgp30.baseline_eCO2, sgp30.baseline_TVOC))
 	time.sleep(1)
