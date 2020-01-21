@@ -47,6 +47,7 @@ while True:
 	print('Temperature: {0:0.3F}*C'.format(temp))
 	print("eCO2 = %d ppm \t TVOC = %d ppb" % (sgp30.eCO2, sgp30.TVOC))
 	csv_file = open('data.csv', mode='a')
+	writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 	writer.writerow({'Temperature': temp, 'CO2': sgp30.eCO2, 'VOC': sgp30.TVOC, 'Time': datetime.time})
 	csv_file.close()
 	time.sleep(1)
