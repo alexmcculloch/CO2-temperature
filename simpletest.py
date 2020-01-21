@@ -3,6 +3,8 @@ import board
 import busio
 import adafruit_sgp30
 import Adafruit_MCP9808.MCP9808 as MCP9808
+import csv
+import datetime
 # Can enable debug output by uncommenting:
 #import logging
 #logging.basicConfig(level=logging.DEBUG)
@@ -31,9 +33,20 @@ sgp30 = adafruit_sgp30.Adafruit_SGP30(i2c)
 sgp30.iaq_init()
 sgp30.set_iaq_baseline(0x8973, 0x8aae)
 
+# create csv, generate name, define columns
+with open('data.csv', mode='a') as csv_file:
+    fieldnames = ['Temperature', 'CO2', 'VOC', 'Time']
+    writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+	writer.writeheader()
+	csv_file.close()
+
+
 # Loop makng measurements every second.
 while True:
 	temp = sensor.readTempC()
 	print('Temperature: {0:0.3F}*C'.format(temp))
 	print("eCO2 = %d ppm \t TVOC = %d ppb" % (sgp30.eCO2, sgp30.TVOC))
+	open('data.csv', mode='a') as csv_file
+    writer.writerow({'Temperature': temp, 'CO2': sgp30.eCO2, 'VOC': sgp30.TVOC, 'Time': datetime.time})
+	csv_file.close()
 	time.sleep(1)
