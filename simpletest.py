@@ -4,7 +4,7 @@ import busio
 import adafruit_sgp30
 import Adafruit_MCP9808.MCP9808 as MCP9808
 import csv
-import datetime
+from datetime import datetime
 # Can enable debug output by uncommenting:
 #import logging
 #logging.basicConfig(level=logging.DEBUG)
@@ -46,8 +46,10 @@ while True:
 	temp = sensor.readTempC()
 	print('Temperature: {0:0.3F}*C'.format(temp))
 	print("eCO2 = %d ppm \t TVOC = %d ppb" % (sgp30.eCO2, sgp30.TVOC))
+	now = datetime.now()
+	current_time = now.strftime("%H:%M:%S")
 	csv_file = open('data.csv', mode='a')
 	writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-	writer.writerow({'Temperature': temp, 'CO2': sgp30.eCO2, 'VOC': sgp30.TVOC, 'Time': datetime.time})
+	writer.writerow({'Temperature': temp, 'CO2': sgp30.eCO2, 'VOC': sgp30.TVOC, 'Time': current_time})
 	csv_file.close()
 	time.sleep(1)
