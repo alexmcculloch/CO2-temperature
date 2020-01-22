@@ -1,1 +1,31 @@
 Temperature,CO2,VOC,Time
+Temperature,CO2,VOC,Time
+20.0,400,0,<class 'datetime.time'>
+20.0,400,0,<class 'datetime.time'>
+20.0,400,0,<class 'datetime.time'>
+20.0625,400,0,<class 'datetime.time'>
+20.0,400,0,<class 'datetime.time'>
+20.0,400,0,<class 'datetime.time'>
+20.0625,400,0,<class 'datetime.time'>
+20.0625,400,0,<class 'datetime.time'>
+20.0625,400,0,<class 'datetime.time'>
+20.0625,400,0,<class 'datetime.time'>
+20.0625,400,0,<class 'datetime.time'>
+20.0625,400,0,<class 'datetime.time'>
+20.0625,400,187,<class 'datetime.time'>
+20.0625,400,193,<class 'datetime.time'>
+20.0625,400,187,<class 'datetime.time'>
+20.125,400,185,<class 'datetime.time'>
+20.0625,400,187,<class 'datetime.time'>
+20.0625,400,186,<class 'datetime.time'>
+20.0625,400,181,<class 'datetime.time'>
+20.0625,400,181,<class 'datetime.time'>
+20.0625,400,177,<class 'datetime.time'>
+20.0625,400,176,<class 'datetime.time'>
+20.125,400,174,<class 'datetime.time'>
+20.0625,400,178,<class 'datetime.time'>
+20.125,400,173,<class 'datetime.time'>
+20.125,400,172,<class 'datetime.time'>
+20.125,400,178,<class 'datetime.time'>
+20.125,400,174,<class 'datetime.time'>
+20.0625,400,170,<class 'datetime.time'>
